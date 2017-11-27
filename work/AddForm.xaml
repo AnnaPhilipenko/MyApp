@@ -1,0 +1,15 @@
+﻿<Window x:Class="work.AddForm"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="AddForm" Height="136.028" Width="336.035">
+
+    <Grid Margin="0,0,2,-6">
+
+
+        <TextBox x:Name="textBox" Height="25" Margin="122,21,10,0" TextWrapping="Wrap" VerticalAlignment="Top" Grid.ColumnSpan="2"/>
+        <Label x:Name="label" Content="Playlist Name:" HorizontalAlignment="Left" Margin="25,21,0,0" VerticalAlignment="Top" Height="25" Width="78"/>
+        <Button x:Name="ok" Content="Save" Grid.Column="1" Margin="0,0,10,10" Grid.Row="1" Height="19" VerticalAlignment="Bottom" HorizontalAlignment="Right" Width="75" Click="ok_Click"/>
+        <Button x:Name="cancel" Content="Cancel" HorizontalAlignment="Right" Margin="0,0,90,10" Width="75" Height="19" VerticalAlignment="Bottom" Click="cancel_Click"/>
+
+    </Grid>
+</Window>

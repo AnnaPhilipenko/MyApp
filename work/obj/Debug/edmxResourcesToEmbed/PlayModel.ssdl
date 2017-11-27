@@ -1,0 +1,38 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="PlayModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityContainer Name="PlayModelStoreContainer">
+    <EntitySet Name="playlist" EntityType="PlayModel.Store.playlist" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="songs" EntityType="PlayModel.Store.songs" store:Type="Tables" Schema="dbo" />
+    <AssociationSet Name="playlistsongs" Association="PlayModel.Store.playlistsongs">
+      <End Role="playlist" EntitySet="playlist" />
+      <End Role="songs" EntitySet="songs" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="playlist">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="name" Type="nvarchar(max)" Nullable="false" />
+  </EntityType>
+  <EntityType Name="songs">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="playlist_id" Type="int" Nullable="true" />
+    <Property Name="song" Type="nvarchar(max)" Nullable="true" />
+  </EntityType>
+  <Association Name="playlistsongs">
+    <End Role="playlist" Type="PlayModel.Store.playlist" Multiplicity="0..1" />
+    <End Role="songs" Type="PlayModel.Store.songs" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="playlist">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="songs">
+        <PropertyRef Name="playlist_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+</Schema>

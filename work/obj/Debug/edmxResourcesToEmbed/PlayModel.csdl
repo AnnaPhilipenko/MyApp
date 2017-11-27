@@ -1,0 +1,40 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="PlayModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="playlist">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="name" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+    <NavigationProperty Name="songs" Relationship="PlayModel.playlistsongs" FromRole="playlist" ToRole="songs" />
+  </EntityType>
+  <EntityType Name="songs">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="playlist_id" Type="Int32" />
+    <Property Name="song" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="playlist" Relationship="PlayModel.playlistsongs" FromRole="songs" ToRole="playlist" />
+  </EntityType>
+  <EntityContainer Name="PlayEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="playlist" EntityType="Self.playlist" />
+    <EntitySet Name="songs" EntityType="Self.songs" />
+    <AssociationSet Name="playlistsongs" Association="PlayModel.playlistsongs">
+      <End Role="playlist" EntitySet="playlist" />
+      <End Role="songs" EntitySet="songs" />
+    </AssociationSet>
+  </EntityContainer>
+  <Association Name="playlistsongs">
+    <End Type="PlayModel.playlist" Role="playlist" Multiplicity="0..1" />
+    <End Type="PlayModel.songs" Role="songs" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="playlist">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="songs">
+        <PropertyRef Name="playlist_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+</Schema>
